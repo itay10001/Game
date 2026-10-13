@@ -24,9 +24,6 @@ public class inventory {
         this.slotsUsed[slot] = true;
     }
 
-    public void sword() {
-        SetID(1);
-    }
 
     public void useSword(boolean attackSuccessful) {
         if (!hasSword) {

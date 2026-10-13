@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class player {
@@ -8,7 +7,7 @@ public class player {
 
     private inventory inv = new inventory();
     private helperFuncs helper = new helperFuncs();
-    private boolean isPlayerAlivequestionmark = true;
+    private boolean isPlayerAlivequestionmark = true; 
 
     game game = new game();
 
