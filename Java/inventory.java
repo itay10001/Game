@@ -49,6 +49,7 @@ public class inventory {
                 return;
             } else if (slotsUsed[i] && itemID[i] == ID) {
                 helper.SOPL("Item already exists in the inventory.");
+                i++;
                 return;
             } else {
                 helper.SOPL("Slot " + i +

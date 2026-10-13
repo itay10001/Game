@@ -1,3 +1,4 @@
+
 import java.util.Random;
 
 public class player {
@@ -5,29 +6,20 @@ public class player {
     public double mana;
     public int stamina;
 
-    private inventory inv = new inventory();
-    private helperFuncs helper = new helperFuncs();
-    private boolean isPlayerAlivequestionmark = true; 
-
-    game game = new game();
+    private final inventory inv = new inventory();
+    private final helperFuncs helper = new helperFuncs();
+    private final Random random = new Random();
 
     public boolean attacksuccessful = false;
 
     public player() {
-        if (game.isGameActive == true) {
-            health = 100;
-            mana = 100.0;
-            stamina = 100;
-            isPlayerAlivequestionmark = true;
-
-            if (health <= 0) {
-                isPlayerAlivequestionmark = false;
-            }
-        }
+        health = 100;
+        mana = 100.0;
+        stamina = 100;
     }
 
-    public int player_doDamage() {
-        final int Damage = new Random().nextInt(11);
+    public int doDamage() {
+        int damage = random.nextInt(11);
 
         if (!inv.hasSword) {
             helper.SOPL("You don't have a sword to attack with!");
@@ -35,7 +27,7 @@ public class player {
             return 0;
         }
 
-        if (Damage == 0) {
+        if (damage == 0) {
             helper.SOPL("You missed your attack!");
             attacksuccessful = false;
             inv.useSword(attacksuccessful);
@@ -43,12 +35,26 @@ public class player {
         }
 
         attacksuccessful = true;
-        helper.SOPL("Damage done: " + Damage);
+        helper.SOPL("Damage done: " + damage);
         inv.useSword(attacksuccessful);
-        return Damage;
+        return damage;
     }
 
     public boolean isAttackSuccessful() {
         return attacksuccessful;
+    }
+
+    public boolean isAlive() {
+        return health > 0;
+    }
+
+    public int TakesDamage(int damage) {
+        health -= Math.max(0, damage);
+
+        if (health < 0) {
+            health = 0;
+        }
+
+        return health;
     }
 }

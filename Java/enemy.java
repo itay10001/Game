@@ -1,74 +1,87 @@
+
 import java.util.Random;
+
 public class enemy {
-    private int damage = new Random().nextInt(11);
-    private helperFuncs helper = new helperFuncs();
-    private inventory inv = new inventory();
-    private player player = new player();
+    private final Random random = new Random();
+    private final helperFuncs helper = new helperFuncs();
+
     public int health;
     public double mana;
     public int stamina;
     public int cooldown = 0;
-    String[] enemyTypes = {"balanced", "tank", "mage", "assassin"};
-    String type = enemyTypes[new Random().nextInt(enemyTypes.length)];
 
-    private String enemy_stats() {
-    if(type == "balanced"){
-        health = 100;
-        mana = 100.0;
-        stamina = 100;
-    }
-    if(type == "tank"){
-        health = 150;
-        mana = 50.0;
-        stamina = 100;
-    }
-    if(type == "mage"){
-        health = 50;
-        mana = 150.0;
-        stamina = 100;
-    }
-    if(type == "assassin"){
-        health = 75;
-        mana = 100.0;
-        stamina = 150;
-    }
-    helper.SOPL("Enemy type: " + type);
-    return type;
-    }
+    private final String[] enemyTypes = {
+        "balanced", "tank", "mage", "assassin"
+    };
 
-    public int typeAttackStats(){
-        if(enemy_stats() == "balanced"){
-            damage = new Random().nextInt(11);
+    private String type;
+
+    private void enemy_stats() {
+        if (type.equals("balanced")) {
+            health = 100;
+            mana = 100.0;
+            stamina = 100;
             cooldown = 3;
-        }
-        if(enemy_stats() == "tank"){
-            damage = new Random().nextInt(6);
+        } else if (type.equals("tank")) {
+            health = 150;
+            mana = 50.0;
+            stamina = 100;
             cooldown = 5;
-        }
-        if(enemy_stats() == "mage"){
-            damage = new Random().nextInt(16);
+        } else if (type.equals("mage")) {
+            health = 50;
+            mana = 150.0;
+            stamina = 100;
             cooldown = 4;
-        }
-        if(enemy_stats() == "assassin"){
-            damage = new Random().nextInt(9);
+        } else if (type.equals("assassin")) {
+            health = 75;
+            mana = 100.0;
+            stamina = 150;
             cooldown = 1;
         }
 
-        return damage;
+        helper.SOPL("Enemy type: " + type);
     }
 
-
-
-
-
-    public int enemy_takeDamage(){
-        final int damage = player.player_doDamage();
-        if (player.isAttackSuccessful()) {
-            health -= damage;
+    public int typeAttackStats() {
+        if (type.equals("balanced")) {
+            return random.nextInt(11);
+        } else if (type.equals("tank")) {
+            return random.nextInt(6);
+        } else if (type.equals("mage")) {
+            return random.nextInt(16);
+        } else if (type.equals("assassin")) {
+            return random.nextInt(9);
         }
+
+        return 0;
+    }
+
+    public int enemy_takeDamage(int damage) {
+        health -= Math.max(0, damage);
+
+        if (health < 0) {
+            health = 0;
+        }
+
+        helper.SOPL("Enemy HP: " + health);
         return damage;
     }
 
+    public int enemyAttacks(player target) {
+        int damage = typeAttackStats();
 
+        target.TakesDamage(damage);
+
+        helper.SOPL(
+            "Enemy dealt " + damage +
+            " damage. Player HP: " + target.health
+        );
+
+        return damage;
+    }
+
+    public void newEnemy() {
+        type = enemyTypes[random.nextInt(enemyTypes.length)];
+        enemy_stats();
+    }
 }
-
