@@ -25,6 +25,11 @@ public class inventory {
     }
 
 
+    public void useManaPotion(){
+
+    }
+
+
     public void useSword(boolean attackSuccessful) {
         if (!hasSword) {
             helper.SOPL("You don't have a sword to use.");

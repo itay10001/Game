@@ -13,8 +13,8 @@ public class player {
     public boolean attacksuccessful = false;
 
     public player() {
-        health = 100;
-        mana = 100.0;
+        health = Math.min(0, 100);
+        mana = Math.min(0, 100);
         stamina = 100;
     }
 
