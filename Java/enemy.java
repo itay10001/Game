@@ -16,7 +16,6 @@ public class enemy {
     public int stamina;
     public double speed;
     public double cooldown;
-
     private int damage;
 
     // Random integer, both endpoints included.

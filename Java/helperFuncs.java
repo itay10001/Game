@@ -3,7 +3,4 @@ public class helperFuncs {
         System.out.println(message);
         return message;
     }
-    
-
-
-}
+    }

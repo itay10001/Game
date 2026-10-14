@@ -1,4 +1,3 @@
-
 import java.util.Random;
 
 public class player {
@@ -13,8 +12,8 @@ public class player {
     public boolean attacksuccessful = false;
 
     public player() {
-        health = Math.min(0, 100);
-        mana = Math.min(0, 100);
+        health = 100;
+        mana = 100.0;
         stamina = 100;
     }
 
@@ -50,11 +49,27 @@ public class player {
 
     public int TakesDamage(int damage) {
         health -= Math.max(0, damage);
-
         if (health < 0) {
             health = 0;
         }
-
         return health;
+    }
+
+    public boolean hasManaPotion() {
+        return inv.hasMPquestion();
+    }
+
+    public double useMP() {
+        mana = inv.useManaPotion(mana);
+        return mana;
+    }
+
+    public double getMana() {
+        return mana;
+    }
+
+    public double resetMana() {
+        mana = 0.0;
+        return mana;
     }
 }
