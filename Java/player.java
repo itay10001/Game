@@ -8,7 +8,7 @@ public class player {
     private final inventory inv = new inventory();
     private final helperFuncs helper = new helperFuncs();
     private final Random random = new Random();
-
+    
     public boolean attacksuccessful = false;
 
     public player() {
@@ -18,7 +18,8 @@ public class player {
     }
 
     public int doDamage() {
-        int damage = random.nextInt(11);
+        int hitRoll = random.nextInt(6);
+        int damage = random.nextInt(5, 36);
 
         if (!inv.hasSword) {
             helper.SOPL("You don't have a sword to attack with!");
@@ -26,7 +27,7 @@ public class player {
             return 0;
         }
 
-        if (damage == 0) {
+        if (hitRoll == 0) {
             helper.SOPL("You missed your attack!");
             attacksuccessful = false;
             inv.useSword(attacksuccessful);

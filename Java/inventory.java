@@ -67,6 +67,14 @@ public class inventory {
         return newHp;
     }
 
+    public int RepairSword(int newDurability){
+        swordDurability = swordDurability + newDurability;
+        if(swordDurability > 0){
+            hasSword = true;
+        }
+        return swordDurability;
+    }
+
 
 
 

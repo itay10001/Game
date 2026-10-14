@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class combat {
@@ -9,15 +10,12 @@ public class combat {
     private final game game = new game();
     private final Scanner input = new Scanner(System.in);
 
-    private String SOPL(String print) {
-        return helper.SOPL(print);
-    }
-
     public boolean startCombat() {
         if (!game.isGameActive) {
             isCombatActive = false;
             return false;
         }
+
         enemy.newEnemy();
         isCombatActive = true;
         helper.SOPL("Combat has started!");
@@ -47,8 +45,77 @@ public class combat {
             helper.SOPL("Combat is active, starting turns...");
             return true;
         }
+
         helper.SOPL("Combat is not active, cannot start turns.");
         return false;
+    }
+
+    // Returns null at end of input, -1 for invalid input.
+    private Integer readChoice() {
+        if (!input.hasNextLine()) {
+            return null;
+        }
+
+        String text = input.nextLine().trim();
+
+        try {
+            return Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    // True means an action consumed a turn.
+    private boolean handleActionsMenu() {
+        helper.SOPL("Actions:");
+        helper.SOPL("1. Use mana potion");
+        helper.SOPL("2. Use health potion");
+        helper.SOPL("3. Repair sword (coming soon)");
+        helper.SOPL("4. Back");
+
+        Integer action = readChoice();
+
+        if (action == null) {
+            isCombatActive = false;
+            return false;
+        }
+
+        switch (action) {
+            case 1:
+                if (!player.hasManaPotion()) {
+                    helper.SOPL("No mana potions left.");
+                    return false;
+                }
+
+                double manaBefore = player.getMana();
+                player.useMP();
+
+                helper.SOPL("Current mana: " + player.getMana());
+                return player.getMana() > manaBefore;
+
+            case 2:
+                if (!player.hasHp()) {
+                    helper.SOPL("No health potions left.");
+                    return false;
+                }
+
+                int hpBefore = player.getHP();
+                player.useHP();
+
+                helper.SOPL("Current HP: " + player.getHP());
+                return player.getHP() > hpBefore;
+
+            case 3:
+                
+                return false;
+
+            case 4:
+                return false;
+
+            default:
+                helper.SOPL("Invalid choice.");
+                return false;
+        }
     }
 
     public void Turns() {
@@ -57,69 +124,57 @@ public class combat {
         }
 
         while (isCombatActive) {
-            
-            SOPL("Pick an action:");
-            SOPL("1. Attack");
-            SOPL("2. Use mana potion");
-            SOPL("3. Use Health potion");
-            SOPL("4. Reset HP");
+            helper.SOPL("Pick an action:");
+            helper.SOPL("1. Attack");
+            helper.SOPL("2. Actions");
+            helper.SOPL("4. Reset HP (dev)");
 
-            if (!input.hasNext()) {
+            Integer choice = readChoice();
+
+            if (choice == null) {
                 isCombatActive = false;
                 break;
             }
-            if (!input.hasNextInt()) {
-                input.next();
-                helper.SOPL("Invalid choice");
-                continue;
+
+            boolean turnUsed;
+
+            switch (choice) {
+                case 1:
+                    int damage = player.doDamage();
+                    enemy.enemy_takeDamage(damage);
+                    turnUsed = true;
+                    break;
+
+                case 2:
+                    turnUsed = handleActionsMenu();
+                    break;
+
+                case 4:
+                    player.resetHp();
+                    helper.SOPL(
+                        "HP reset. New HP: " + player.getHP()
+                    );
+                    turnUsed = false;
+                    break;
+
+                default:
+                    helper.SOPL("Invalid choice.");
+                    turnUsed = false;
+                    break;
             }
 
-            int choice = input.nextInt();
-            if (choice == 1) {
-                int damage = player.doDamage();
-                enemy.enemy_takeDamage(damage);
-            } else if (choice == 2) {
-                if (!player.hasManaPotion()) {
-                    helper.SOPL("No mana potions left");
-                    continue;
-                }
-                double before = player.getMana();
-                player.useMP();
-                helper.SOPL("Current mana: " + player.getMana());
-                if (player.getMana() == before) {
-                    continue; // Potion wasn't consumed, so don't use a turn.
-                }
-            } else if (choice == 3) {
-                if(!player.hasHp()){
-                    SOPL("No hp potions left");
-                    continue;
-                }
-                int before = player.getHP();
-                player.useHP();
-                SOPL("Current HP: " + player.getHP());
-                    if(player.getHP() == before){
-                        continue;
-                    }
-
-
-            }else if(choice == 4){
-                player.resetHp();
-                SOPL("Hp reset. New hp: " + player.getHP());
-
-
-            }else {
-                helper.SOPL("Invalid choice");
+            if (!turnUsed) {
                 continue;
-            } 
+            }
 
             if (winConditionMet()) {
                 break;
             }
+
             enemy.enemyAttacks(player);
+
             if (LossConditionMet()) {
                 break;
-
-            
             }
         }
     }
