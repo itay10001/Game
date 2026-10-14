@@ -5,6 +5,7 @@ public class inventory {
     public boolean hasSword = true;
     public int swordDurability = 15;
     public int mpAmount = 3;
+    public int HpAmount = 3;
 
     private final helperFuncs helper = new helperFuncs();
 
@@ -13,6 +14,8 @@ public class inventory {
         slotsUsed[0] = true;
         itemID[1] = 2; // Mana potion stack
         slotsUsed[1] = true;
+        itemID[2] = 3; // Health potion
+        slotsUsed[2] = true;
     }
 
     public void addItem(int itemID, int slot) {
@@ -44,8 +47,39 @@ public class inventory {
         return newMana;
     }
 
+    public int useHealthPotion(int hp) {
+        if (!hasHPquestion()) {
+            helper.SOPL("No health potions left.");
+            return hp;
+        }
+        if (hp >= 100.0) {
+            helper.SOPL("Your hp is already full.");
+            return hp;
+        }
+
+        HpAmount--;
+        int newHp = Math.min(100, hp + 10);
+
+        if (HpAmount == 0) {
+            itemID[2] = 0;
+            slotsUsed[2] = false;
+        }
+        return newHp;
+    }
+
+
+
+
+
+
+
+
     public boolean hasMPquestion() {
         return mpAmount > 0;
+    }
+
+    public boolean hasHPquestion() {
+        return HpAmount > 0;
     }
 
     public void useSword(boolean attackSuccessful) {

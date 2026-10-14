@@ -59,17 +59,34 @@ public class player {
         return inv.hasMPquestion();
     }
 
+    public boolean hasHp(){
+        return inv.hasHPquestion();
+    }
+
     public double useMP() {
         mana = inv.useManaPotion(mana);
         return mana;
     }
 
+    public int useHP(){
+        health = inv.useHealthPotion(health);
+        return health;
+    }
+
     public double getMana() {
         return mana;
+    }
+    public int getHP(){
+        return health;
     }
 
     public double resetMana() {
         mana = 0.0;
         return mana;
+    }
+
+    public double resetHp(){
+        health = 15;
+        return health;
     }
 }

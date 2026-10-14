@@ -57,10 +57,12 @@ public class combat {
         }
 
         while (isCombatActive) {
+            
             SOPL("Pick an action:");
             SOPL("1. Attack");
             SOPL("2. Use mana potion");
-            SOPL("3. Reset mana (dev)");
+            SOPL("3. Use Health potion");
+            SOPL("4. Reset HP");
 
             if (!input.hasNext()) {
                 isCombatActive = false;
@@ -88,13 +90,27 @@ public class combat {
                     continue; // Potion wasn't consumed, so don't use a turn.
                 }
             } else if (choice == 3) {
-                player.resetMana();
-                helper.SOPL("Mana reset. Current mana: " + player.getMana());
-                continue; // Developer-only action; no enemy turn.
-            } else {
+                if(!player.hasHp()){
+                    SOPL("No hp potions left");
+                    continue;
+                }
+                int before = player.getHP();
+                player.useHP();
+                SOPL("Current HP: " + player.getHP());
+                    if(player.getHP() == before){
+                        continue;
+                    }
+
+
+            }else if(choice == 4){
+                player.resetHp();
+                SOPL("Hp reset. New hp: " + player.getHP());
+
+
+            }else {
                 helper.SOPL("Invalid choice");
                 continue;
-            }
+            } 
 
             if (winConditionMet()) {
                 break;
@@ -102,6 +118,8 @@ public class combat {
             enemy.enemyAttacks(player);
             if (LossConditionMet()) {
                 break;
+
+            
             }
         }
     }
