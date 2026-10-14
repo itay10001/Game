@@ -75,13 +75,6 @@ public class inventory {
         return swordDurability;
     }
 
-
-
-
-
-
-
-
     public boolean hasMPquestion() {
         return mpAmount > 0;
     }
