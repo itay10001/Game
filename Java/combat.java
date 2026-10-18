@@ -64,6 +64,7 @@ public class combat {
             return -1;
         }
     }
+    
 
     // True means an action consumed a turn.
     private boolean handleActionsMenu() {
@@ -110,6 +111,7 @@ public class combat {
                 return false;
 
             case 4:
+
                 return false;
 
             default:
