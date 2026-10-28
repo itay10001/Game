@@ -8,6 +8,7 @@ public class combat {
     private final player player = new player();
     private final enemy enemy = new enemy();
     private final game game = new game();
+    private final classes classes = new classes();
     private final Scanner input = new Scanner(System.in);
 
     public boolean startCombat() {

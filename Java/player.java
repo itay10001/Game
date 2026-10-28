@@ -8,6 +8,7 @@ public class player {
     private final inventory inv = new inventory();
     private final helperFuncs helper = new helperFuncs();
     private final Random random = new Random();
+    public  String mageType;
     
     public boolean attacksuccessful = false;
 

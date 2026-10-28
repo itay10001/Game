@@ -1,9 +1,11 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class classes {
     private Random mageTypeR = new Random();
     private Random combatTypeR = new Random();
-    private boolean manualPickCombatType;
+    public boolean manualPickCombatType;
+    public boolean manualPickMageType;
 
     
     
@@ -49,7 +51,7 @@ public class classes {
 
 
     public String rollCombatType(){
-        int classInt = rollClassInt(1, 4);
+        int classInt = rollClassInt(1, 5);
 
         if(classInt == 1){
             return classes[0];
