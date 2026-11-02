@@ -1,8 +1,8 @@
-package character;
+package rpg.character;
 import java.util.Random;
 
-import items.inventory;
-import util.helperFuncs;
+import rpg.items.inventory;
+import rpg.util.helperFuncs;
 
 public class player {
     public int health;

@@ -1,7 +1,7 @@
-package items;
+package rpg.items;
 
 
-import util.helperFuncs;
+import rpg.util.helperFuncs;
 
 public class inventory {
     private final int[] itemID = new int[10];

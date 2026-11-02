@@ -1,11 +1,11 @@
-package combat;
+package rpg.combat;
 
 import java.util.Scanner;
 
-import character.classes;
-import character.player;
-import core.game;
-import util.helperFuncs;
+import rpg.character.classes;
+import rpg.character.player;
+import rpg.core.game;
+import rpg.util.helperFuncs;
 
 public class combat {
     public boolean isCombatActive = false;

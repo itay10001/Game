@@ -1,4 +1,4 @@
-package core;
+package rpg.core;
 public class game {
     public boolean isGameActive = true;
     private boolean isPlayerAlivequestionmark = true;

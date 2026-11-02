@@ -1,4 +1,4 @@
-package character;
+package rpg.character;
 import java.util.Random;
 import java.util.Scanner;
 
