@@ -27,7 +27,7 @@ public class inventory {
         this.slotsUsed[slot] = true;
     }
 
-    public double useManaPotion(double mana) {
+    public int useManaPotion(int mana) {
         if (!hasMPquestion()) {
             helper.SOPL("No mana potions left.");
             return mana;
@@ -38,7 +38,7 @@ public class inventory {
         }
 
         mpAmount--;
-        double newMana = Math.min(100.0, mana + 10.0);
+        int newMana = Math.min(100, mana + 10);
 
         if (mpAmount == 0) {
             itemID[1] = 0;

@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class player {
     public int health;
-    public double mana;
+    public int mana;
     public int stamina;
 
     private final inventory inv = new inventory();
@@ -13,9 +13,7 @@ public class player {
     public boolean attacksuccessful = false;
 
     public player() {
-        health = 100;
-        mana = 100.0;
-        stamina = 100;
+        
     }
 
     public int doDamage() {
@@ -65,7 +63,7 @@ public class player {
         return inv.hasHPquestion();
     }
 
-    public double useMP() {
+    public int useMP() {
         mana = inv.useManaPotion(mana);
         return mana;
     }
@@ -83,12 +81,12 @@ public class player {
     }
 
     public double resetMana() {
-        mana = 0.0;
+        mana = 0;
         return mana;
     }
 
     public double resetHp(){
         health = 15;
         return health;
-    }
+    }  
 }

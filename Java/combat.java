@@ -10,6 +10,7 @@ public class combat {
     private final game game = new game();
     private final classes classes = new classes();
     private final Scanner input = new Scanner(System.in);
+    public boolean isGameActive = game.isGameActive;
 
     public boolean startCombat() {
         if (!game.isGameActive) {
@@ -66,6 +67,7 @@ public class combat {
         }
     }
     
+    
 
     // True means an action consumed a turn.
     private boolean handleActionsMenu() {
@@ -81,6 +83,7 @@ public class combat {
             isCombatActive = false;
             return false;
         }
+        
 
         switch (action) {
             case 1:

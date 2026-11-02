@@ -1,9 +1,22 @@
 import java.util.Scanner;
 
 public class Main {
-    private combat combat = new combat();
+    private static combat combat = new combat();
     private Scanner input = new Scanner(System.in);
+    private static boolean isGameActive = combat.isGameActive;
+
+
+
+
+
+
+    
+
+
     public static void main(String[] args) {
+        if(isGameActive){
+            
+        }
         
         
     }
