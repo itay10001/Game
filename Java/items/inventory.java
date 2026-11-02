@@ -1,3 +1,8 @@
+package items;
+
+
+import util.helperFuncs;
+
 public class inventory {
     private final int[] itemID = new int[10];
     private final boolean[] slotsUsed = new boolean[itemID.length];

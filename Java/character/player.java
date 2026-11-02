@@ -1,4 +1,8 @@
+package character;
 import java.util.Random;
+
+import items.inventory;
+import util.helperFuncs;
 
 public class player {
     public int health;
@@ -37,6 +41,19 @@ public class player {
         helper.SOPL("Damage done: " + damage);
         inv.useSword(attacksuccessful);
         return damage;
+    }
+
+
+    public boolean hasSword() {
+        return inv.hasSword;
+    }
+
+    public int getSwordDurability() {
+        return inv.swordDurability;
+    }
+
+    public int repairSword() {
+        return inv.RepairSword(2);
     }
 
     public boolean isAttackSuccessful() {

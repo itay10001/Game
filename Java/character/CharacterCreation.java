@@ -1,3 +1,4 @@
+package character;
 public class CharacterCreation {
         private String characterName;
         private String characterClass;

@@ -1,5 +1,9 @@
+package combat;
 
 import java.util.Random;
+
+import character.player;
+import util.helperFuncs;
 
 public class enemy {
     private final Random random = new Random();

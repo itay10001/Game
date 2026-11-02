@@ -1,3 +1,4 @@
+package core;
 public class game {
     public boolean isGameActive = true;
     private boolean isPlayerAlivequestionmark = true;

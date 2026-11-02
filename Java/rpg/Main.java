@@ -1,4 +1,7 @@
+package rpg;
 import java.util.Scanner;
+
+import combat.combat;
 
 public class Main {
     private static combat combat = new combat();

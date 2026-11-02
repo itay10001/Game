@@ -1,5 +1,11 @@
+package combat;
 
 import java.util.Scanner;
+
+import character.classes;
+import character.player;
+import core.game;
+import util.helperFuncs;
 
 public class combat {
     public boolean isCombatActive = false;
@@ -74,7 +80,7 @@ public class combat {
         helper.SOPL("Actions:");
         helper.SOPL("1. Use mana potion");
         helper.SOPL("2. Use health potion");
-        helper.SOPL("3. Repair sword (coming soon)");
+        helper.SOPL("3. Repair sword");
         helper.SOPL("4. Back");
 
         Integer action = readChoice();
@@ -111,8 +117,17 @@ public class combat {
                 return player.getHP() > hpBefore;
 
             case 3:
-                
-                return false;
+                if(!player.hasSword()) {
+                    helper.SOPL("No sword to repair.");
+                    return false;
+                }else if(player.getSwordDurability() >= 100) {
+                    helper.SOPL("Sword is already at full durability.");
+                    return false;
+                }else{
+                    player.repairSword();
+                    helper.SOPL("Sword repaired.");
+                    return true;
+                }
 
             case 4:
 
