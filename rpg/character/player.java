@@ -2,7 +2,7 @@ package rpg.character;
 import java.util.Random;
 
 import rpg.items.inventory;
-import rpg.util.helperFuncs;
+import static rpg.util.HelperFuncs.*;
 
 public class player {
     public int health;
@@ -10,7 +10,6 @@ public class player {
     public int stamina;
 
     private final inventory inv = new inventory();
-    private final helperFuncs helper = new helperFuncs();
     private final Random random = new Random();
     public  String mageType;
     
@@ -25,20 +24,20 @@ public class player {
         int damage = random.nextInt(5, 36);
 
         if (!inv.hasSword) {
-            helper.SOPL("You don't have a sword to attack with!");
+            SOPL("You don't have a sword to attack with!");
             attacksuccessful = false;
             return 0;
         }
 
         if (hitRoll == 0) {
-            helper.SOPL("You missed your attack!");
+            SOPL("You missed your attack!");
             attacksuccessful = false;
             inv.useSword(attacksuccessful);
             return 0;
         }
 
         attacksuccessful = true;
-        helper.SOPL("Damage done: " + damage);
+            SOPL("Damage done: " + damage);
         inv.useSword(attacksuccessful);
         return damage;
     }

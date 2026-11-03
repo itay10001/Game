@@ -3,11 +3,10 @@ package rpg.combat;
 import java.util.Random;
 
 import rpg.character.player;
-import rpg.util.helperFuncs;
+import static rpg.util.HelperFuncs.*;
 
 public class enemy {
     private final Random random = new Random();
-    private final helperFuncs helper = new helperFuncs();
 
     private final String[] enemyTypes = {
         "buff", "quick", "balanced"
@@ -77,7 +76,7 @@ public class enemy {
                 );
         }
 
-        helper.SOPL(
+        SOPL(
             "Enemy type: " + type +
             " | HP: " + health +
             " | Damage: " + damage
@@ -93,7 +92,7 @@ public class enemy {
             0, health - Math.max(0, incomingDamage)
         );
 
-        helper.SOPL("Enemy HP: " + health);
+        SOPL("Enemy HP: " + health);
         return incomingDamage;
     }
 
@@ -102,7 +101,7 @@ public class enemy {
 
         target.TakesDamage(attackDamage);
 
-        helper.SOPL(
+        SOPL(
             "Enemy dealt " + attackDamage +
             " damage. Player HP: " + target.health
         );

@@ -1,7 +1,6 @@
 package rpg.items;
 
 
-import rpg.util.helperFuncs;
 
 public class inventory {
     private final int[] itemID = new int[10];
@@ -11,8 +10,6 @@ public class inventory {
     public int swordDurability = 15;
     public int mpAmount = 3;
     public int HpAmount = 3;
-
-    private final helperFuncs helper = new helperFuncs();
 
     public inventory() {
         itemID[0] = 1; // Sword
@@ -34,11 +31,11 @@ public class inventory {
 
     public int useManaPotion(int mana) {
         if (!hasMPquestion()) {
-            helper.SOPL("No mana potions left.");
+            System.out.println("No mana potions left.");
             return mana;
         }
         if (mana >= 100.0) {
-            helper.SOPL("Your mana is already full.");
+            System.out.println("Your mana is already full.");
             return mana;
         }
 
@@ -54,11 +51,11 @@ public class inventory {
 
     public int useHealthPotion(int hp) {
         if (!hasHPquestion()) {
-            helper.SOPL("No health potions left.");
+            System.out.println("No health potions left.");
             return hp;
         }
         if (hp >= 100.0) {
-            helper.SOPL("Your hp is already full.");
+            System.out.println("Your hp is already full.");
             return hp;
         }
 
@@ -90,14 +87,14 @@ public class inventory {
 
     public void useSword(boolean attackSuccessful) {
         if (!hasSword) {
-            helper.SOPL("You don't have a sword to use.");
+            System.out.println("You don't have a sword to use.");
             return;
         }
         if (attackSuccessful) {
             swordDurability--;
             if (swordDurability <= 0) {
                 hasSword = false;
-                helper.SOPL("Your sword has broken!");
+                System.out.println("Your sword has broken!");
             }
         }
     }
@@ -105,7 +102,7 @@ public class inventory {
     public void SetID(int ID) {
         for (int i = 0; i < itemID.length; i++) {
             if (slotsUsed[i] && itemID[i] == ID) {
-                helper.SOPL("Item already exists in the inventory.");
+                System.out.println("Item already exists in the inventory.");
                 return;
             }
         }
@@ -116,7 +113,7 @@ public class inventory {
                 return;
             }
         }
-        helper.SOPL("Inventory is full.");
+        System.out.println("Inventory is full.");
     }
 
     public int getItemID(int slot) {

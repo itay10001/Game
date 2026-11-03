@@ -5,12 +5,12 @@ import java.util.Scanner;
 import rpg.character.classes;
 import rpg.character.player;
 import rpg.core.game;
-import rpg.util.helperFuncs;
+import static rpg.util.HelperFuncs.*;
 
 public class combat {
     public boolean isCombatActive = false;
 
-    private final helperFuncs helper = new helperFuncs();
+    
     private final player player = new player();
     private final enemy enemy = new enemy();
     private final game game = new game();
@@ -26,13 +26,13 @@ public class combat {
 
         enemy.newEnemy();
         isCombatActive = true;
-        helper.SOPL("Combat has started!");
+        SOPL("Combat has started!");
         return true;
     }
 
     public boolean LossConditionMet() {
         if (isCombatActive && !player.isAlive()) {
-            helper.SOPL("You have been defeated!");
+            SOPL("You have been defeated!");
             isCombatActive = false;
             return true;
         }
@@ -41,7 +41,7 @@ public class combat {
 
     private boolean winConditionMet() {
         if (isCombatActive && enemy.health <= 0) {
-            helper.SOPL("You defeated the enemy!");
+            SOPL("You defeated the enemy!");
             isCombatActive = false;
             return true;
         }
@@ -50,11 +50,11 @@ public class combat {
 
     public boolean startTurns() {
         if (startCombat()) {
-            helper.SOPL("Combat is active, starting turns...");
+            SOPL("Combat is active, starting turns...");
             return true;
         }
 
-        helper.SOPL("Combat is not active, cannot start turns.");
+        SOPL("Combat is not active, cannot start turns.");
         return false;
     }
 
@@ -77,11 +77,11 @@ public class combat {
 
     // True means an action consumed a turn.
     private boolean handleActionsMenu() {
-        helper.SOPL("Actions:");
-        helper.SOPL("1. Use mana potion");
-        helper.SOPL("2. Use health potion");
-        helper.SOPL("3. Repair sword");
-        helper.SOPL("4. Back");
+        SOPL("Actions:");
+        SOPL("1. Use mana potion");
+        SOPL("2. Use health potion");
+        SOPL("3. Repair sword");
+        SOPL("4. Back");
 
         Integer action = readChoice();
 
@@ -94,38 +94,38 @@ public class combat {
         switch (action) {
             case 1:
                 if (!player.hasManaPotion()) {
-                    helper.SOPL("No mana potions left.");
+                    SOPL("No mana potions left.");
                     return false;
                 }
 
                 double manaBefore = player.getMana();
                 player.useMP();
 
-                helper.SOPL("Current mana: " + player.getMana());
+                SOPL("Current mana: " + player.getMana());
                 return player.getMana() > manaBefore;
 
             case 2:
                 if (!player.hasHp()) {
-                    helper.SOPL("No health potions left.");
+                    SOPL("No health potions left.");
                     return false;
                 }
 
                 int hpBefore = player.getHP();
                 player.useHP();
 
-                helper.SOPL("Current HP: " + player.getHP());
+                SOPL("Current HP: " + player.getHP());
                 return player.getHP() > hpBefore;
 
             case 3:
                 if(!player.hasSword()) {
-                    helper.SOPL("No sword to repair.");
+                    SOPL("No sword to repair.");
                     return false;
                 }else if(player.getSwordDurability() >= 100) {
-                    helper.SOPL("Sword is already at full durability.");
+                    SOPL("Sword is already at full durability.");
                     return false;
                 }else{
                     player.repairSword();
-                    helper.SOPL("Sword repaired.");
+                    SOPL("Sword repaired.");
                     return true;
                 }
 
@@ -134,7 +134,7 @@ public class combat {
                 return false;
 
             default:
-                helper.SOPL("Invalid choice.");
+                SOPL("Invalid choice.");
                 return false;
         }
     }
@@ -145,10 +145,10 @@ public class combat {
         }
 
         while (isCombatActive) {
-            helper.SOPL("Pick an action:");
-            helper.SOPL("1. Attack");
-            helper.SOPL("2. Actions");
-            helper.SOPL("4. Reset HP (dev)");
+            SOPL("Pick an action:");
+            SOPL("1. Attack");
+            SOPL("2. Actions");
+            SOPL("4. Reset HP (dev)");
 
             Integer choice = readChoice();
 
@@ -172,14 +172,14 @@ public class combat {
 
                 case 4:
                     player.resetHp();
-                    helper.SOPL(
+                    SOPL(
                         "HP reset. New HP: " + player.getHP()
                     );
                     turnUsed = false;
                     break;
 
                 default:
-                    helper.SOPL("Invalid choice.");
+                    SOPL("Invalid choice.");
                     turnUsed = false;
                     break;
             }
