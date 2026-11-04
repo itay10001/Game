@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * General-purpose Java 8+ helpers. No external dependencies.
- * Import with: import static utils.HelperFuncs.*;
+ * Import with: import static rpg.util.HelperFuncs.*;
  *
  * Console input functions are intended for command-line applications.
  * File functions use UTF-8 and throw UncheckedIOException on I/O errors.

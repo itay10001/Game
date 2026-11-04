@@ -81,14 +81,14 @@ public class classes {
         return mageTypeString = rollMageType();
     }
     public static String setManualClassType(String classString){
+        SOPL("1. balanced");
+        SOPL("2. tank");
+        SOPL("3. barbaric");
+        SOPL("4. archer");
+        SOPL("5. mage");
         final int manualClassType = askInt("Pick your class: balanced, tank, barbaric, archer, mage, (pick a number 1-5)");
-        SOPL("balanced");
-        SOPL("tank");
-        SOPL("barbaric");
-        SOPL("archer");
-        SOPL("mage");
         if(manualClassType < 1 || manualClassType > 5){
-            SOPL("Invalid class type. Defaulting to balanced.");
+            SOPL("Error. Invalid class type entered. pick again.");
             return classes[0];
         }else{
             if(manualClassType == 1){
@@ -119,22 +119,16 @@ public class classes {
             if(manualCombatType.equalsIgnoreCase("y")){
                 manualPickCombatType = true;
                 final int manualClassType = askInt("Pick your class: (pick a number 1-5)");
-                SOPL("balanced");
-                SOPL("tank");
-                SOPL("barbaric");
-                SOPL("archer");
-                SOPL("mage");
                 if(manualClassType < 1 || manualClassType > 5){
-                    SOPL("Invalid class type. Defaulting to balanced.");
+                    SOPL("Error. Invalid class type entered. pick again.");
                     setManualClassType(classes[0]);
-                
-            }else{
-                manualPickCombatType = false;
-            }
-            if(!manualPickCombatType){
-                classType = setRandomCombatType(classType);
-                if(classType.equals(classes[4])){
-                    mageTypeString = setRandomMageType(mageTypeString);
+                }else{
+                    manualPickCombatType = false;
+                }
+                if(!manualPickCombatType){
+                    classType = setRandomCombatType(classType);
+                    if(classType.equals(classes[4])){
+                        mageTypeString = setRandomMageType(mageTypeString);
                 }
             }
         
