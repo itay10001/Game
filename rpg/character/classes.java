@@ -40,14 +40,14 @@ public class classes {
 
 
     public static String rollMageType(){
-        int mageInt = rollMageTypeInt(1, 4);
-        return(mageTypes[-1 + mageInt]);
+        int mageInt = rollMageTypeInt(0, 3);
+        return(mageTypes[mageInt]);
     }
 
 
     public static String rollClass(){
-        int classInt = rollClassInt(1, 5);
-        return(classes[-1 + classInt]);
+        int classInt = rollClassInt(0, 4);
+        return(classes[classInt]);
     }
 
     public static String setRandomCombatType(String combatTypeString){
