@@ -2,8 +2,8 @@ package rpg.combat;
 
 import java.util.Scanner;
 
-import rpg.character.classes;
 import rpg.character.player;
+import rpg.character.classes.classes;
 import rpg.core.game;
 import static rpg.util.HelperFuncs.*;
 
