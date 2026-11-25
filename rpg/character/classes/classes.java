@@ -16,6 +16,7 @@ public class classes {
     public static boolean manualPickMageType;
     public static boolean manualclassPick;
     public static boolean manualCharacterCreation;
+    public static boolean isClassPick;
 
     public static final String[] mageTypes = {
         "fire mage",
@@ -105,46 +106,49 @@ public class classes {
     }
 
     public static void main(String[] args) {
-        manualCharacterCreation = askYesNo(
-            "Do you want to manually create your character? (y/n)"
-        );
-        manualPickCombatType = manualCharacterCreation
-            && askYesNo(
-                "Do you want to manually pick your class? (y/n)"
+        isClassPick = true;
+        if(isClassPick) {
+            manualCharacterCreation = askYesNo(
+                "Do you want to manually create your character? (y/n)"
             );
-        manualclassPick = manualPickCombatType;
-        if (manualPickCombatType) {
-            SOPL("1. balanced");
-            SOPL("2. tank");
-            SOPL("3. barbaric");
-            SOPL("4. archer");
-            SOPL("5. mage");
-            classType = setManualClassType(classType);
-        } else {
-            classType = setRandomCombatType(classType);
-        }
-        manualPickMageType = false;
-        mageTypeString = mageTypes[4];
-        if (classType.equals(classes[4])) {
-            manualPickMageType = manualCharacterCreation
+            manualPickCombatType = manualCharacterCreation
                 && askYesNo(
-                    "Do you want to manually pick your mage type? (y/n)"
+                    "Do you want to manually pick your class? (y/n)"
                 );
-            if (manualPickMageType) {
-                SOPL("1. fire mage");
-                SOPL("2. water mage");
-                SOPL("3. earth mage");
-                SOPL("4. air mage");
-                mageTypeString = setManualMageType(mageTypeString);
+            manualclassPick = manualPickCombatType;
+            if (manualPickCombatType) {
+                SOPL("1. balanced");
+                SOPL("2. tank");
+                SOPL("3. barbaric");
+                SOPL("4. archer");
+                SOPL("5. mage");
+                classType = setManualClassType(classType);
             } else {
-                mageTypeString = setRandomMageType(mageTypeString);
+                classType = setRandomCombatType(classType);
             }
-        }
-        SOPL("Character creation complete!");
-        SOPL("Class: " + classType);
+            manualPickMageType = false;
+            mageTypeString = mageTypes[4];
+            if (classType.equals(classes[4])) {
+                manualPickMageType = manualCharacterCreation
+                    && askYesNo(
+                        "Do you want to manually pick your mage type? (y/n)"
+                    );
+                if (manualPickMageType) {
+                    SOPL("1. fire mage");
+                    SOPL("2. water mage");
+                    SOPL("3. earth mage");
+                    SOPL("4. air mage");
+                    mageTypeString = setManualMageType(mageTypeString);
+                } else {
+                    mageTypeString = setRandomMageType(mageTypeString);
+                }
+            }
+            SOPL("Character creation complete!");
+            SOPL("Class: " + classType);
 
-        if (classType.equals(classes[4])) {
-            SOPL("Mage type: " + mageTypeString);
+            if (classType.equals(classes[4])) {
+                SOPL("Mage type: " + mageTypeString);
+            }
         }
     }
 }

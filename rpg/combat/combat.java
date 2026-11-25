@@ -14,7 +14,6 @@ public class combat {
     private final player player = new player();
     private final enemy enemy = new enemy();
     private final game game = new game();
-    private final classes classes = new classes();
     private final Scanner input = new Scanner(System.in);
     public boolean isGameActive = game.isGameActive;
 
@@ -199,4 +198,8 @@ public class combat {
             }
         }
     }
+    public static void main(String[] args) {
+    combat combatInstance = new combat();
+    combatInstance.Turns();
+    }   
 }
