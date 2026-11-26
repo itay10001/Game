@@ -1,5 +1,4 @@
 package rpg.combat;
-
 import java.util.Random;
 
 import rpg.character.player;
