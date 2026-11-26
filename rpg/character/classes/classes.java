@@ -1,3 +1,4 @@
+
 package rpg.character.classes;
 
 import java.util.Random;
@@ -8,7 +9,6 @@ public class classes {
     private static final Random mageTypeR = new Random();
     private static final Random combatTypeR = new Random();
 
-    public String classString;
     public static String classType;
     public static String mageTypeString = "mage not picked";
 
@@ -16,13 +16,14 @@ public class classes {
     public static boolean manualPickMageType;
     public static boolean manualclassPick;
     public static boolean manualCharacterCreation;
-    public static boolean isClassPick;
+    public static boolean isMagePicked = false;
 
     public static final String[] mageTypes = {
         "fire mage",
         "water mage",
         "earth mage",
         "air mage",
+        "general mage",
         "mage not picked"
     };
 
@@ -43,11 +44,11 @@ public class classes {
     }
 
     public static String rollMageType() {
-        return mageTypes[rollMageTypeInt(0, 3)];
+        return mageTypes[rollMageTypeInt(0, mageTypes.length - 2)];
     }
 
     public static String rollClass() {
-        return classType = classes[rollClassInt(0, 4)];
+        return classType = classes[rollClassInt(0, classes.length - 1)];
     }
 
     public static String setRandomCombatType(String combatTypeString) {
@@ -61,12 +62,11 @@ public class classes {
     public static String setManualClassType(String classString) {
 
         int manualClassType = askInt(
-            "Pick your class: (pick a number 1-5)"
+            "Pick your class: (pick a number 1-" + classes.length + ")"
         );
 
-        if (manualClassType < 1 || manualClassType > 5) {
+        if (manualClassType < 1 || manualClassType > classes.length) {
             SOPL("Error. Invalid class type entered. Pick again.");
-
             return setManualClassType(classString);
         }
 
@@ -76,12 +76,12 @@ public class classes {
     public static String setManualMageType(String currentMageType) {
 
         int manualMageType = askInt(
-            "Pick your mage type: (pick a number 1-4)"
+            "Pick your mage type: (pick a number 1-" 
+            + (mageTypes.length - 1) + ")"
         );
 
-        if (manualMageType < 1 || manualMageType > 4) {
+        if (manualMageType < 1 || manualMageType > mageTypes.length - 1) {
             SOPL("Error. Invalid mage type entered. Pick again.");
-
             return setManualMageType(currentMageType);
         }
 
@@ -101,54 +101,62 @@ public class classes {
         }
 
         SOPL("Error. Please enter y or n.");
-
         return askYesNo(question);
     }
 
-    public static void main(String[] args) {
-        isClassPick = true;
-        if(isClassPick) {
-            manualCharacterCreation = askYesNo(
-                "Do you want to manually create your character? (y/n)"
-            );
-            manualPickCombatType = manualCharacterCreation
-                && askYesNo(
-                    "Do you want to manually pick your class? (y/n)"
-                );
-            manualclassPick = manualPickCombatType;
-            if (manualPickCombatType) {
-                SOPL("1. balanced");
-                SOPL("2. tank");
-                SOPL("3. barbaric");
-                SOPL("4. archer");
-                SOPL("5. mage");
-                classType = setManualClassType(classType);
-            } else {
-                classType = setRandomCombatType(classType);
-            }
-            manualPickMageType = false;
-            mageTypeString = mageTypes[4];
-            if (classType.equals(classes[4])) {
-                manualPickMageType = manualCharacterCreation
-                    && askYesNo(
-                        "Do you want to manually pick your mage type? (y/n)"
-                    );
-                if (manualPickMageType) {
-                    SOPL("1. fire mage");
-                    SOPL("2. water mage");
-                    SOPL("3. earth mage");
-                    SOPL("4. air mage");
-                    mageTypeString = setManualMageType(mageTypeString);
-                } else {
-                    mageTypeString = setRandomMageType(mageTypeString);
-                }
-            }
-            SOPL("Character creation complete!");
-            SOPL("Class: " + classType);
+    public static String selectClass() {
 
-            if (classType.equals(classes[4])) {
-                SOPL("Mage type: " + mageTypeString);
+        isMagePicked = false;
+        manualPickMageType = false;
+        mageTypeString = mageTypes[mageTypes.length - 1];
+
+        manualCharacterCreation = askYesNo(
+            "Do you want to manually create your character? (y/n)"
+        );
+
+        manualPickCombatType = manualCharacterCreation
+            && askYesNo(
+                "Do you want to manually pick your class? (y/n)"
+            );
+
+        manualclassPick = manualPickCombatType;
+
+        if (manualPickCombatType) {
+
+            for (int i = 0; i < classes.length; i++) {
+                SOPL((i + 1) + ". " + classes[i]);
             }
+
+            classType = setManualClassType(classType);
+
+        } else {
+            classType = setRandomCombatType(classType);
         }
+
+        isMagePicked = classType.equals("mage");
+
+        if (isMagePicked) {
+
+            manualPickMageType = manualCharacterCreation
+                && askYesNo(
+                    "Do you want to manually pick your mage type? (y/n)"
+                );
+
+            if (manualPickMageType) {
+
+                for (int i = 0; i < mageTypes.length - 1; i++) {
+                    SOPL((i + 1) + ". " + mageTypes[i]);
+                }
+
+                mageTypeString = setManualMageType(mageTypeString);
+
+            } else {
+                mageTypeString = setRandomMageType(mageTypeString);
+            }
+
+            return classType + " (" + mageTypeString + ")";
+        }
+
+        return classType;
     }
 }

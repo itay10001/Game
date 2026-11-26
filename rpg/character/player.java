@@ -7,7 +7,6 @@ import static rpg.util.HelperFuncs.*;
 public class player {
     public int health;
     public int mana;
-    public int stamina;
 
     private final inventory inv = new inventory();
     private final Random random = new Random();
